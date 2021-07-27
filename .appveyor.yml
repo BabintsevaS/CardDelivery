@@ -9,12 +9,8 @@ branches:
 build: off
 
 install:
-  # запускаем SUT (запоминаем информацию о процессе в переменной $App)
-  - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-card-delivery.jar" -PassThru
+  - java -jar ./artifacts/app-card-delivery.jar &
 
 build_script:
-  - ps: chmod +x gradlew
-  - ps: ./gradlew test --info "-Dselenide.headless=true"  # стартуем Selenide в Headless-режиме
-
-on_finish:
-  - ps: Stop-Process -Id $App.Id  # оставливаем SUT
+  - chmod +x gradlew
+  - ./gradlew test --info "-Dselenide.headless=true"  # стартуем Selenide в Headless-режиме
