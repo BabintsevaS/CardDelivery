@@ -25,7 +25,6 @@ public class RegistrationTest {
         open("http://localhost:9999");
         SelenideElement form = $(".form");
         form.$("[data-test-id=city] input").setValue("Челябинск");
-        $$(".menu-item__control").last().click();
         form.$("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         form.$("[data-test-id=date] input").setValue(outputDate);
         form.$("[data-test-id=name] input").setValue("Иванов Иван");
@@ -33,7 +32,7 @@ public class RegistrationTest {
         form.$(".checkbox__box").click();
         form.$(".button__text").click();
         $(withText("Успешно!")).should(Condition.visible, Duration.ofSeconds(15));
-        $(withText(outputDate)).should(Condition.visible);
+        $(".notification__content").should(Condition.text("Встреча успешно забронирована на "+ outputDate)).should(Condition.visible);
     }
 
 }
